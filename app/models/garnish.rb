@@ -1,0 +1,2 @@
+class Garnish < Ingredient
+end
