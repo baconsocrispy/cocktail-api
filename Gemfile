@@ -47,3 +47,11 @@ group :development do
   # gem "spring"
 end
 
+group :pagination do
+  gem 'kaminari'
+end
+
+group :authentication do
+  gem "devise", "~> 4.8"
+end
+
