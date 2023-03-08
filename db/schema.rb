@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_08_221916) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_08_223218) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -80,6 +80,30 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_221916) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["display_name"], name: "index_ingredients_on_display_name"
+  end
+
+  create_table "ingredients_portions", force: :cascade do |t|
+    t.bigint "ingredient_id", null: false
+    t.bigint "portion_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ingredient_id", "portion_id"], name: "index_ingredients_portions_on_ingredient_id_and_portion_id"
+    t.index ["portion_id", "ingredient_id"], name: "index_ingredients_portions_on_portion_id_and_ingredient_id"
+  end
+
+  create_table "portions", force: :cascade do |t|
+    t.decimal "amount"
+    t.string "unit"
+    t.string "portionable_type", null: false
+    t.bigint "portionable_id", null: false
+    t.bigint "ingredient_id", null: false
+    t.boolean "optional"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ingredient_id"], name: "index_portions_on_ingredient_id"
+    t.index ["optional"], name: "index_portions_on_optional"
+    t.index ["portionable_type", "portionable_id"], name: "index_portions_on_portionable"
+    t.check_constraint "amount > 0::numeric", name: "amount_check"
   end
 
   create_table "recipes", force: :cascade do |t|
