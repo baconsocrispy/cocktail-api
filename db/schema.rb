@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_08_225112) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_08_225334) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -141,6 +141,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_225112) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["recipe_id"], name: "index_steps_on_recipe_id"
+  end
+
+  create_table "tools", force: :cascade do |t|
+    t.string "tool_type", null: false
+    t.string "tool_brand"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tool_type"], name: "index_tools_on_tool_type"
   end
 
 end
