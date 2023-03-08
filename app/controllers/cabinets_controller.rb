@@ -4,8 +4,7 @@ class CabinetsController < ApplicationController
 
   # GET /cabinets
   def index
-    # @cabinets = Cabinet.where(user_id: current_user.id)
-    @cabinets = Cabinet.all
+    @cabinets = Cabinet.where(user_id: current_user.id)
 
     render json: @cabinets
   end
@@ -72,8 +71,7 @@ class CabinetsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cabinet
-      @cabinet = Cabinet.find(params[:id])
-      # @cabinet = Cabinet.find_by_slug!(params[:id])
+      @cabinet = Cabinet.find_by_slug!(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
