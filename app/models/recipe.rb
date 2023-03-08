@@ -3,7 +3,6 @@ class Recipe < ApplicationRecord
 
   include Portionable
   
-  has_one_attached :image
   has_and_belongs_to_many :users
   has_and_belongs_to_many :tools
   has_and_belongs_to_many :categories
@@ -17,7 +16,7 @@ class Recipe < ApplicationRecord
   accepts_nested_attributes_for :portions, allow_destroy: true, reject_if: proc { |att| att['ingredient_id'].blank? }
 
   validates :name, presence: true
-  validates :slug, uniqueness: true, presence: true
+  validates :slug, presence: true
 
   # ordering scopes
   scope :alphabetical, -> { order(:name) }
