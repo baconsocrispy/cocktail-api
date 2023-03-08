@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_08_225839) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_08_230139) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -164,4 +164,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_225839) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "cabinets_tools", "cabinets"
+  add_foreign_key "cabinets_tools", "tools"
+  add_foreign_key "categories_recipes", "categories"
+  add_foreign_key "categories_recipes", "recipes"
+  add_foreign_key "recipes_tools", "recipes"
+  add_foreign_key "recipes_tools", "tools"
+  add_foreign_key "steps", "recipes"
 end
