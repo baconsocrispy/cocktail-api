@@ -19,7 +19,7 @@ class Recipe < ApplicationRecord
   validates :slug, presence: true
 
   # ordering scopes
-  scope :alphabetical, -> { order(:name) }
+  scope :alphabetical, -> { includes(:ingredients, :categories, :steps, :tools, :users).order(:name) }
 
   # filtering scopes
   scope :search, lambda{ |search_term| self.where('recipes.name ILIKE ?', "%#{ search_term }%").distinct if search_term.present? }

@@ -1,10 +1,12 @@
 class CabinetsController < ApplicationController
   before_action :set_cabinet, only: %i[ show edit update destroy ]
   # before_action :authenticate_user!
+  respond_to :json
 
   # GET /cabinets
   def index
-    @cabinets = Cabinet.where(user_id: current_user.id)
+    # @cabinets = Cabinet.where(user_id: current_user.id)
+    @cabinets = Cabinet.all
 
     render json: @cabinets
   end

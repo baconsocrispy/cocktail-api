@@ -1,6 +1,6 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
 
   # handles favoriting/unfavoriting
   # POST /recipes/1/favorite
@@ -16,28 +16,39 @@ class RecipesController < ApplicationController
   end
 
   # GET /recipes or /recipes.json
-  def index
-    @home = true
-    @page = params[:page] || 1
+  # def index
+  #   @home = true
+  #   @page = params[:page] || 1
     
+  #   @recipes = Recipe.alphabetical.page(@page)
+  #   @recipe_count = @recipes.total_count
+
+  #   if params[:search]
+  #     @recipes = Recipe.search_recipes(
+  #                         params[:search],
+  #                         current_user
+  #                       )
+  #                       .alphabetical
+  #                       .page(@page)
+  #     @recipe_count = @recipes.total_count
+
+  #       respond_to do |format|
+  #         format.html { render partial: 'components/recipe_cards/recipe_cards_container', formats: [:html] }
+  #         format.turbo_stream
+  #       end
+  #     end
+  #   end
+  # end
+
+  def index
+    @page = params[:page] || 1
     @recipes = Recipe.alphabetical.page(@page)
-    @recipe_count = @recipes.total_count
+    @recipes_count = @recipes.total_count
 
-    if params[:search]
-      @recipes = Recipe.search_recipes(
-                          params[:search],
-                          current_user
-                        )
-                        .alphabetical
-                        .page(@page)
-      @recipe_count = @recipes.total_count
-
-        respond_to do |format|
-          format.html { render partial: 'components/recipe_cards/recipe_cards_container', formats: [:html] }
-          format.turbo_stream
-        end
-      end
-    end
+    render json: { recipes: @recipes.map {
+      |recipe| RecipeSerializer.new(recipe).serializable_hash[:data][:attributes]
+    }, recipe_count: @recipes_count }
+  end
 
   # GET /recipes/1
   def show
@@ -104,7 +115,6 @@ class RecipesController < ApplicationController
       params.require(:recipe).permit(
         :name, 
         :description, 
-        :image, 
         category_ids: [], 
         tool_ids: [],                           
         steps_attributes: [
