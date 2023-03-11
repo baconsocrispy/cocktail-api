@@ -5,7 +5,7 @@ class IngredientsController < ApplicationController
   # GET /ingredients
   def index
     @ingredients = Ingredient.all
-    @ingredient_types = Ingredient.distinct.pluck(:type)
+    @ingredient_types = Ingredient.distinct.pluck(:type).reverse
 
     render json: { 
       ingredients: @ingredients.map { |ingredient| 
