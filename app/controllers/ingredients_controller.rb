@@ -5,9 +5,15 @@ class IngredientsController < ApplicationController
   # GET /ingredients
   def index
     @ingredients = Ingredient.all
-    render json: { ingredients: @ingredients.map {
-      |ingredient| IngredientSerializer.new(ingredient).serializable_hash[:data][:attributes]
-    }}
+    @ingredient_types = Ingredient.distinct.pluck(:type)
+
+    render json: { 
+      ingredients: @ingredients.map { |ingredient| 
+        IngredientSerializer.new(ingredient)
+          .serializable_hash[:data][:attributes]
+      }, 
+      ingredientTypes: @ingredient_types 
+    }
   end
 
   # GET /ingredients/1
