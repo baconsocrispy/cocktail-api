@@ -3,5 +3,5 @@ class IngredientSerializer
 
   set_type :ingredient
   set_id :id
-  attributes :type, :display_name, :sub_type, :brand, :product, :abv, :age, :recipes, :cabinets
+  attributes :id, :type, :name, :sub_type, :brand, :product, :abv, :age
 end

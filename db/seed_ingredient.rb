@@ -3,10 +3,10 @@ def create_or_update_ingredients
   csv_text = File.read(Rails.root.join('lib', 'seeds', 'ingredients.csv'))
   csv = CSV.parse(csv_text, :headers => true)
   csv.each do |row|
-    ingredient = Ingredient.where(:display_name => row['display_name'])
+    ingredient = Ingredient.where(:name => row['name'])
     if !ingredient.empty?
       ingredient.update!(type: row[0],
-                        display_name: row['display_name'],
+                        name: row['name'],
                         sub_type: row['sub_type'],
                         brand: row['brand'],
                         product: row['product'],
@@ -15,7 +15,7 @@ def create_or_update_ingredients
     
     else
       Ingredient.create!(type: row[0],
-                        display_name: row['display_name'],
+                        name: row['name'],
                         sub_type: row['sub_type'],
                         brand: row['brand'],
                         product: row['product'],

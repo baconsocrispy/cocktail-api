@@ -4,7 +4,7 @@ class Cabinet < ApplicationRecord
   include Portionable
   belongs_to :user, optional: true
   has_and_belongs_to_many :tools
-  has_many :ingredients, through: :portions
+  has_many :ingredients, through: :portions, source: :portionable, source_type: 'Ingredient'
 
   validates :name, presence: true 
   validates :slug, uniqueness: true, presence: true

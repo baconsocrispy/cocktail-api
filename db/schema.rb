@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_08_232243) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_11_023146) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,7 +71,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_232243) do
 
   create_table "ingredients", force: :cascade do |t|
     t.string "type"
-    t.string "display_name", null: false
+    t.string "name", null: false
     t.string "sub_type", null: false
     t.string "brand"
     t.string "product"
@@ -79,7 +79,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_232243) do
     t.integer "age"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["display_name"], name: "index_ingredients_on_display_name"
+    t.index ["name"], name: "index_ingredients_on_name"
   end
 
   create_table "ingredients_portions", force: :cascade do |t|
