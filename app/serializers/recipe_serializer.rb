@@ -3,5 +3,5 @@ class RecipeSerializer
 
   set_type :recipe
   set_id :id
-  attributes  :name, :description, :ingredients, :categories, :steps, :tools, :users
+  attributes  :id, :name, :description, :ingredients, :categories, :steps, :tools, :users
 end

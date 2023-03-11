@@ -47,7 +47,7 @@ class RecipesController < ApplicationController
 
     render json: { recipes: @recipes.map {
       |recipe| RecipeSerializer.new(recipe).serializable_hash[:data][:attributes]
-    }, recipe_count: @recipes_count }
+    }, recipeCount: @recipes_count }
   end
 
   # GET /recipes/1
