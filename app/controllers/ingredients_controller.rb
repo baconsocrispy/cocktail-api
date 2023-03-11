@@ -5,8 +5,9 @@ class IngredientsController < ApplicationController
   # GET /ingredients
   def index
     @ingredients = Ingredient.all
-
-    render json: @ingredients
+    render json: { ingredients: @ingredients.map {
+      |ingredient| IngredientSerializer.new(ingredient).serializable_hash[:data][:attributes]
+    }}
   end
 
   # GET /ingredients/1
