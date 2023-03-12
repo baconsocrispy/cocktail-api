@@ -16,29 +16,19 @@ class RecipesController < ApplicationController
   end
 
   # GET /recipes or /recipes.json
-  # def index
-  #   @home = true
-  #   @page = params[:page] || 1
-    
-  #   @recipes = Recipe.alphabetical.page(@page)
-  #   @recipe_count = @recipes.total_count
+  def search
+    @page = params[:page] || 1
+    @recipes = Recipe.search_recipes(
+                        params
+                      )
+                      .alphabetical
+                      .page(@page)
+    @recipe_count = @recipes.total_count
 
-  #   if params[:search]
-  #     @recipes = Recipe.search_recipes(
-  #                         params[:search],
-  #                         current_user
-  #                       )
-  #                       .alphabetical
-  #                       .page(@page)
-  #     @recipe_count = @recipes.total_count
-
-  #       respond_to do |format|
-  #         format.html { render partial: 'components/recipe_cards/recipe_cards_container', formats: [:html] }
-  #         format.turbo_stream
-  #       end
-  #     end
-  #   end
-  # end
+    render json: { recipes: @recipes.map {
+      |recipe| RecipeSerializer.new(recipe).serializable_hash[:data][:attributes]
+    }, recipeCount: @recipes_count }
+  end
 
   def index
     @page = params[:page] || 1

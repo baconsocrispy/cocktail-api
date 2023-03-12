@@ -1,7 +1,7 @@
-class CategorySerializer
+class SortOptionSerializer
   include JSONAPI::Serializer
 
-  set_type :category
+  set_type :sort_option
   set_id :id
   attributes :id, :name
 
