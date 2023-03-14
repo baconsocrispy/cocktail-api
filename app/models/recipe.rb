@@ -18,58 +18,60 @@ class Recipe < ApplicationRecord
   validates :name, presence: true
   validates :slug, presence: true
 
+  # FILTERING LOGIC 
+
   # ordering scopes
-  scope :alphabetical, -> { includes(:ingredients, :categories, :steps, :tools, :users).order(:name) }
+  scope :alphabetical, -> { order(:name) }
 
   # filtering scopes
-  scope :search, lambda{ |search_term| self.where('recipes.name ILIKE ?', "%#{ search_term }%").distinct if search_term.present? }
-  scope :by_category, lambda{ |category_ids| self.joins(:categories).where(categories: { id: category_ids }) if category_ids.present? }
-  scope :by_all_ingredients, lambda{ |ingredient_ids| self.joins(:ingredients).group(:id).having('array_agg(ingredients.id) @> ?', ingredient_ids) if ingredient_ids.present? }
-  scope :by_any_ingredient, lambda{ |ingredient_ids| self.joins(:ingredients).where(ingredients: { id: ingredient_ids }).distinct }
-  scope :user_has_all_ingredients, lambda{ |user_ingredients| self.joins(:ingredients).group(:id).having('array_agg(ingredients.id) <@ ?', user_ingredients) if user_ingredients.present? }
+  scope :search, -> (search_term) { 
+    where('recipes.name ILIKE ?', "%#{ search_term }%")
+    .distinct if search_term.present? 
+  }
 
+  scope :by_category, -> (category_ids) { 
+    joins(:categories)
+    .where(categories: { id: category_ids }) if category_ids.present? 
+  }
+
+  scope :by_any_ingredient, -> (ingredient_ids) { 
+    joins(:ingredients)
+    .where(ingredients: { id: ingredient_ids })
+    .distinct 
+  }
+
+  scope :user_has_all_ingredients, -> (user_ingredients) { 
+    joins(:ingredients)
+    .group(:id)
+    .having(
+      'array_agg(ingredients.id) <@ ?', user_ingredients
+    ) if user_ingredients.present? 
+  }
+
+  scope :by_all_ingredients, -> (ingredient_ids) {
+    joins(:ingredients)
+    .group(:id)
+    .having(
+      'array_agg(ingredients.id) @> ?', ingredient_ids
+    ) if ingredient_ids.present?
+  }
+  
+  def self.search_all_recipes(params)
+    # formats ingredient id array for postgresql
+    ingredient_ids = '{' + params[:ingredientIds].join(', ') + '}' if params[:ingredientIds]
+    category_ids = params[:categoryIds]
+
+    by_category(category_ids)
+      .by_all_ingredients(ingredient_ids)
+      .search('bravest')
+  end
+
+  # helpers
   def to_param
     slug
   end
 
   def generate_slug
     self.slug ||= name.parameterize
-  end
-
-  def self.search_recipes(search_params, user)
-    sort_option = search_params[:sortOption]
-    category_ids = search_params[:categoryIds]
-    search_term = search_params[:searchTerm]
-
-    # needed to cast these into Postgres array format in order to function properly
-    ingredient_ids = '{' + search_params[:ingredientIds].join(', ') + '}' if search_params[:ingredientIds]
-    user_ingredients = '{' + user.ingredients.join(', ') + '}'
-
-    case sort_option
-    when 'All Recipes'
-      by_category(category_ids)
-        .by_all_ingredients(ingredient_ids)
-        .search(search_term)
-    when 'I Have Any Ingredient' 
-      by_category(category_ids)
-        .by_any_ingredient(user.ingredients)
-        .by_all_ingredients(ingredient_ids)
-        .search(search_term)
-    when 'I Have All Ingredients'
-      by_category(category_ids)
-        .user_has_all_ingredients(user_ingredients)
-        .by_all_ingredients(ingredient_ids)
-        .search(search_term)
-    when 'Favorites'
-      user.favorites
-        .by_category(category_ids)
-        .by_all_ingredients(ingredient_ids)
-        .search(search_term)
-    when 'My Recipes'
-      user.recipes
-        .by_category(category_ids)
-        .by_all_ingredients(ingredient_ids)
-        .search(search_term)
-    end
   end
 end

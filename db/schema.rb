@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_11_205005) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_13_184237) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -56,8 +56,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_11_205005) do
     t.bigint "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["category_id", "recipe_id"], name: "index_categories_recipes_on_category_id_and_recipe_id"
-    t.index ["recipe_id", "category_id"], name: "index_categories_recipes_on_recipe_id_and_category_id"
+    t.index ["category_id"], name: "index_categories_recipes_on_category_id"
+    t.index ["recipe_id", "category_id"], name: "index_categories_recipes_on_recipe_id_and_category_id", unique: true
+    t.index ["recipe_id"], name: "index_categories_recipes_on_recipe_id"
   end
 
   create_table "favorite_recipes", force: :cascade do |t|
@@ -87,8 +88,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_11_205005) do
     t.bigint "portion_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["ingredient_id", "portion_id"], name: "index_ingredients_portions_on_ingredient_id_and_portion_id"
-    t.index ["portion_id", "ingredient_id"], name: "index_ingredients_portions_on_portion_id_and_ingredient_id"
+    t.index ["ingredient_id"], name: "index_ingredients_portions_on_ingredient_id"
+    t.index ["portion_id"], name: "index_ingredients_portions_on_portion_id"
   end
 
   create_table "portions", force: :cascade do |t|

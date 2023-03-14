@@ -18,13 +18,8 @@ class RecipesController < ApplicationController
   # GET /recipes or /recipes.json
   def search
     @page = params[:page] || 1
-    @recipes = Recipe.search_recipes(
-                        params
-                      )
-                      .alphabetical
-                      .page(@page)
-    @recipe_count = @recipes.total_count
-
+    @recipes = Recipe.search_all_recipes(params).alphabetical.page(@page)
+    
     render json: { recipes: @recipes.map {
       |recipe| RecipeSerializer.new(recipe).serializable_hash[:data][:attributes]
     }, recipeCount: @recipes_count }
