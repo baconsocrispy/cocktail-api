@@ -19,11 +19,8 @@ class Recipe < ApplicationRecord
   validates :slug, presence: true
 
   # FILTERING LOGIC 
-
-  # ordering scopes
   scope :alphabetical, -> { order(:name) }
 
-  # filtering scopes
   scope :search, -> (search_term) { 
     where('recipes.name ILIKE ?', "%#{ search_term }%")
     .distinct if search_term.present? 
@@ -59,11 +56,10 @@ class Recipe < ApplicationRecord
   def self.search_all_recipes(params)
     # formats ingredient id array for postgresql
     ingredient_ids = '{' + params[:ingredientIds].join(', ') + '}' if params[:ingredientIds]
-    category_ids = params[:categoryIds]
 
-    by_category(category_ids)
+    by_category(params[:categoryIds])
       .by_all_ingredients(ingredient_ids)
-      .search('bravest')
+      .search(params[:keyword])
   end
 
   # helpers
