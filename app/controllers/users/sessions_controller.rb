@@ -1,21 +1,6 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
-  def current_user
-    if current_user
-      render json: {
-        status: {
-          code: 200
-        },
-        data: UserSerializer.new(current_user).serializable_hash[:data][:attributes]
-      }, status: :ok
-    else
-      render json: {
-        message: 'No user is currently signed in'
-      }
-    end
-  end
-
   # override default devise create method
   def create
     # find user by email

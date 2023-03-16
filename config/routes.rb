@@ -3,10 +3,8 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
-
-  devise_scope :user do
-    get '/user/current_user', to: 'users/sessions#current_user'
-  end
+  
+  get '/csrf_token', to: 'csrf#token'
 
   resources :recipes do 
     get :search, on: :collection

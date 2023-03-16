@@ -6,6 +6,20 @@
 * install devise `rails g devise:install`
 * add `require 'devise'` to top of config/application.rb
 
+* I needed to create a session store and add session middleware as they are 
+disabled by default in API only apps. In `application.rb` I added:
+
+```
+# initialize session store & options, key takes form of '_app_name_session'
+config.session_store :cookie_store, key: '_cocktail_session'
+
+# add session middleware to Rack stack
+config.middleware.use ActionDispatch::Cookies
+config.middleware.use config.session_store, config.session_options
+config.middleware.use ActionDispatch::Session::CookieStore
+```
+
+
 ### Server
 In `config/puma.rb` set default port to 3001
 
@@ -35,3 +49,8 @@ gem to allow CORS.
 * to generate a config file in config/intializers: `rails g kaminari:config`
 
 
+## CSRF
+I created a CSRF controller with a csrf_token endpoint that passes a token
+to the  frontend on fetch. I needed to include the ActiveController::RequestForgeryProtection
+module to have access to the request_forgery_protection_token method. I
+also needed to add the get route to the routes.rb file. 
