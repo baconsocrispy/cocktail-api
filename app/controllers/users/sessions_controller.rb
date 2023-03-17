@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
+  include RackSessionFix
+  respond_to :json
+  
   # override default devise create method
   def create
     # find user by email
@@ -49,7 +52,8 @@ class Users::SessionsController < Devise::SessionsController
         code: 200,
         message: 'User logged in successfully'
       },
-      data: UserSerializer.new(user).serializable_hash[:data][:attributes]
+      user: UserSerializer.new(user).serializable_hash[:data][:attributes],
+      jwt: user.jwt
     }, status: :ok
   end
 

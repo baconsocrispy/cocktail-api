@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
+  include RackSessionFix
+  respond_to :json
+
   private
   def respond_with(resource, _opts = {})
     if resource.persisted?
@@ -9,14 +12,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
           code: 200,
           message: 'Signup success'
         },
-        data: UserSerializer.new(resource).serializable_hash[:data][:attributes]
+        user: UserSerializer.new(resource).serializable_hash[:data][:attributes],
+        jwt: resource.jwt
       }, status: :ok
     else
       render json: {
-        message: "#{
-          resource.errors.full_messages.to_sentence
-        }",
-        errors: resource.errors
+        status: {
+          message: "#{
+            resource.errors.full_messages.to_sentence
+          }",
+          errors: resource.errors
+        }, 
       }, status: :unprocessable_entity  
     end
   end

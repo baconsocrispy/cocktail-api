@@ -2,9 +2,10 @@ class Cabinet < ApplicationRecord
   before_validation :generate_slug
 
   include Portionable
+
   belongs_to :user, optional: true
   has_and_belongs_to_many :tools
-  has_many :ingredients, through: :portions, source: :portionable, source_type: 'Ingredient'
+  has_many :ingredients, through: :portions
 
   validates :name, presence: true 
   validates :slug, uniqueness: true, presence: true

@@ -1,9 +1,9 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  include Devise::JWT::RevocationStrategies::JTIMatcher
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+    :recoverable, :validatable,
+    :jwt_authenticatable, jwt_revocation_strategy: self
 
   has_many :cabinets
   has_many :favorite_recipes
@@ -18,8 +18,10 @@ class User < ApplicationRecord
     return ingredient_ids
   end
 
-  def default_cab
-    c = Cabinet.find(self.default_cabinet)
-    return c
+  # return user's jwt
+  def jwt
+    return JWT.encode(
+      { user_id: self.id }, Rails.application.secrets.secret_key_base
+    )
   end
 end
