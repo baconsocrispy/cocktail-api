@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
   # get a hash of ingredient ids from a user's cabinet
   def ingredients
-    c = Cabinet.find(self.default_cabinet)
+    c = Cabinet.find(self.current_cabinet_id)
     ingredient_ids = []
     c.ingredients.each { |i| ingredient_ids << i.id }
     return ingredient_ids
@@ -20,6 +20,7 @@ class User < ApplicationRecord
 
   # return user's jwt
   def jwt
+    # JWT.encode(payload, secret)
     return JWT.encode(
       { user_id: self.id }, Rails.application.secrets.secret_key_base
     )

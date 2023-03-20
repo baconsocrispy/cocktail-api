@@ -82,3 +82,18 @@ session table).
 
 * create User model: `rails g devise User`
 * create controllers: `rails g devise:controllers users -c sessions registrations`
+
+* https://dakotaleemartinez.com/tutorials/devise-jwt-api-only-mode-for-authentication/
+
+CABINET PARAMS
+
+```
+{"name"=>"Carter's Liquor Cabinet",
+ "user_id"=>"1",
+ "portions_attributes"=>
+  {"0"=>{"ingredient_id"=>"104", "amount"=>"", "unit"=>""},
+   "1"=>{"ingredient_id"=>"44", "amount"=>"", "unit"=>""},
+   "2"=>{"ingredient_id"=>"130", "amount"=>"", "unit"=>""},
+   "3"=>{"ingredient_id"=>"3", "amount"=>"", "unit"=>""}},
+ "tool_ids"=>["8", "12"]}
+ ```

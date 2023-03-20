@@ -1,18 +1,18 @@
-# frozen_string_literal: true
-
-class Users::SessionsController < Devise::SessionsController
+class API::V1::AuthController < ApplicationController
   include RackSessionFix
   respond_to :json
-  
-  # override default devise create method
-  def create
-    # find user by email
-    @user = User.find_by(email: sign_in_params[:email])
+
+  def signup
+
+  end
+
+  def signin
+    @user = User.new(user_params)
 
     return invalid_email_response unless @user
 
     # verify password and log in user
-    if @user.valid_password?(sign_in_params[:password])
+    if @user.valid_password?(user_params[:password])
       sign_in :user, @user
       return sign_in_success_response(@user)
     else
@@ -20,9 +20,13 @@ class Users::SessionsController < Devise::SessionsController
     end
   end
 
+  def signout
+
+  end
+
   private
-  def sign_in_params
-    params.require(:user).permit :email, :password, :password_confirmation
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation)
   end
 
   # response messages
@@ -52,6 +56,7 @@ class Users::SessionsController < Devise::SessionsController
         code: 200,
         message: 'User logged in successfully'
       },
+      user: UserSerializer.new(user).serializable_hash[:data][:attributes],
       jwt: user.jwt
     }, status: :ok
   end

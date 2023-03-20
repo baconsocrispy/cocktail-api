@@ -12,7 +12,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
           code: 200,
           message: 'Signup success'
         },
-        user: UserSerializer.new(resource).serializable_hash[:data][:attributes],
         jwt: resource.jwt
       }, status: :ok
     else

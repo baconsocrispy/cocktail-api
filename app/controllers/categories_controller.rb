@@ -4,8 +4,8 @@ class CategoriesController < ApplicationController
   # GET /categories
   def index
     @categories = Category.all
-    render json: { categories: @categories.map {
-      |category| CategorySerializer.new(category).serializable_hash[:data][:attributes]
+    render json: { categories: @categories.map { |category| 
+      CategorySerializer.new(category).serializable_hash[:data][:attributes]
     }}
   end
 
