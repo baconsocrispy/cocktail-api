@@ -23,15 +23,7 @@ class CabinetsController < ApplicationController
 
   # GET /cabinets/1
   def show
-    @show = true
-    # updates user's default cabinet when 
-    # switching liquor cabinets in the sidebar and
-    # re-renders the sidebar with new cabinet
-    if params[:update_id]
-      current_user.update!(current_cabinet_id: params[:update_id])
-      @cabinet = Cabinet.find(params[:update_id])
-      render partial: 'components/cabinet_sidebar/cabinet_sidebar', locals: { cabinet: @cabinet }
-    end
+    render json: CabinetSerializer.new(@cabinet).serializable_hash[:data][:attributes]
   end
 
   # GET /cabinets/new
@@ -58,28 +50,51 @@ class CabinetsController < ApplicationController
   # POST /cabinets
   def create
     @cabinet = Cabinet.create!(cabinet_params)
-    p @cabinet
-    render json: { message: 'TESTING'}
 
-    # if @cabinet.save
-    #   render json: @cabinet, status: :created, location: @cabinet
-    # else
-    #   render json: @cabinet.errors, status: :unprocessable_entity
-    # end
+    if @cabinet.errors.any?
+      render json: {
+        status: {
+          code: 422,
+          errors: @cabinet.errors
+        }
+      }, status: :unprocessable_entity
+    else
+      render json: {
+        status: {
+          code: 200,
+          message: 'Cabinet created successfully'
+        }
+      }, status: :ok
+    end
   end
 
   # PATCH/PUT /cabinets/1
   def update
-    if @cabinet.update(cabinet_params)
-      render json: @cabinet
+    @cabinet.portions.destroy_all
+    @cabinet.tools.destroy_all
+    @cabinet.update!(cabinet_params)
+    
+    if @cabinet.errors.any?
+      render json: {
+        status: {
+          code: 422,
+          errors: @cabinet.errors
+        }
+      }, status: :unprocessable_entity
     else
-      render json: @cabinet.errors, status: :unprocessable_entity
+      render json: {
+        status: {
+          code: 200,
+          message: 'Cabinet updated successfully'
+        }
+      }, status: :ok
     end
   end
 
   # DELETE /cabinets/1
   def destroy
-    @cabinet.destroy
+    @cabinet.destroy!
+    render json: { message: 'Successfully deleted cabinet' }
   end
 
   private
