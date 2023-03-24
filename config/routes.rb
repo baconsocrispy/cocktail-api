@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   post 'update_current_cabinet/:id', to: 'current_user#update_current_cabinet'
 
+  post 'favorite/:recipe_id', to: 'current_user#favorite'
+
   devise_scope :user do 
     resources :sessions, defaults: { format: :json }
     resources :registrations, defaults: { format: :json }

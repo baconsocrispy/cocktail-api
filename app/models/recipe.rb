@@ -37,6 +37,16 @@ class Recipe < ApplicationRecord
     .distinct 
   }
 
+  scope :by_all_ingredients, -> (ingredient_ids) {
+    joins(:ingredients)
+    # .where(ingredients: { id: ingredient_ids })
+    .group(:id)
+    # .having('count(*) = ?', ingredient_ids.length) 
+    .having(
+      'array_agg(ingredients.id) @> ?', ingredient_ids
+    ) if ingredient_ids.present?
+  }
+
   scope :user_has_all_ingredients, -> (user_ingredients) { 
     joins(:ingredients)
     .group(:id)
@@ -45,24 +55,34 @@ class Recipe < ApplicationRecord
     ) if user_ingredients.present? 
   }
 
-  scope :by_all_ingredients, -> (ingredient_ids) {
-    joins(:ingredients)
-    .group(:id)
-    .having(
-      'array_agg(ingredients.id) @> ?', ingredient_ids
-    ) if ingredient_ids.present?
-  }
-  
+  # SEARCH METHODS
   def self.search_all_recipes(params)
-    # formats ingredient id array for postgresql
     ingredient_ids = '{' + params[:ingredientIds].join(', ') + '}' if params[:ingredientIds]
-
     by_category(params[:categoryIds])
       .by_all_ingredients(ingredient_ids)
       .search(params[:keyword])
   end
 
+  def self.match_all_ingredients(params)
+    ingredient_ids = '{' + params[:ingredientIds].join(', ') + '}' if params[:ingredientIds]
+    user_ingredients = '{' + params[:userIngredientIds].join(', ') + '}' if params[:userIngredientIds]
+
+    by_category(params[:categoryIds])
+      .user_has_all_ingredients(user_ingredients)
+      .by_all_ingredients(ingredient_ids)
+      .search(params[:keyword])
+  end
+
+  def self.match_any_ingredient(params)
+    ingredient_ids = '{' + params[:ingredientIds].join(', ') + '}' if params[:ingredientIds]
+    by_category(params[:categoryIds])
+      .by_any_ingredient(params[:userIngredientIds])
+      .by_all_ingredients(ingredient_ids)
+      .search(params[:keyword])
+  end
+
   # helpers
+  private
   def to_param
     slug
   end

@@ -23,6 +23,10 @@ class RecipesController < ApplicationController
     case @sort_option
     when 'All Recipes', nil
       @recipes = Recipe.search_all_recipes(params).alphabetical.page(@page)
+    when 'I Have All Ingredients'
+      @recipes = Recipe.match_all_ingredients(params).alphabetical.page(@page)
+    when 'I Have Any Ingredient'
+      @recipes = Recipe.match_any_ingredient(params).alphabetical.page(@page)
     else
       @recipes = Recipe.search_all_recipes(params).alphabetical.page(@page)
     end
