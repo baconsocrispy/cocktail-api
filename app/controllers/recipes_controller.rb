@@ -1,19 +1,6 @@
 class RecipesController < ApplicationController
+  include AuthenticateUser
   before_action :set_recipe, only: %i[ show edit update destroy ]
-  # before_action :authenticate_user!
-
-  # handles favoriting/unfavoriting
-  # POST /recipes/1/favorite
-  def favorite
-    set_recipe
-    if current_user.favorites.include?(@recipe)
-      current_user.favorites.delete(@recipe)
-      render partial: 'components/favoriting/unfavorite', locals: { recipe: @recipe }
-    else
-      current_user.favorites << @recipe
-      render partial: 'components/favoriting/favorite', locals: { recipe: @recipe }
-    end
-  end
 
   # GET /recipes or /recipes.json
   def search
@@ -27,6 +14,8 @@ class RecipesController < ApplicationController
       @recipes = Recipe.match_all_ingredients(params).alphabetical.page(@page)
     when 'I Have Any Ingredient'
       @recipes = Recipe.match_any_ingredient(params).alphabetical.page(@page)
+    when 'Favorites'
+      @recipes = current_user.favorites.search_all_recipes(params).alphabetical.page(@page)
     else
       @recipes = Recipe.search_all_recipes(params).alphabetical.page(@page)
     end
@@ -59,18 +48,6 @@ class RecipesController < ApplicationController
     render json: @recipe
   end
 
-  # GET /recipes/new
-  def new
-    @recipe = Recipe.new
-    @recipe.steps.build
-    @recipe.portions.build
-  end
-
-  # GET /recipes/1/edit
-  def edit
-    @edit = true
-  end
-
   # POST /recipes
   def create
     @recipe = Recipe.new(recipe_params)
@@ -82,11 +59,9 @@ class RecipesController < ApplicationController
         format.json { render :show, status: :created, location: @recipe }
       rescue ActiveRecord::RecordNotUnique => e
         flash[:error] = "Recipe name already in use"
-        format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @recipe.errors, status: :unprocessable_entity }
       rescue => e
         flash[:error] = e.message
-        format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @recipe.errors, status: :unprocessable_entity }
       end
     end

@@ -34,7 +34,7 @@ class Recipe < ApplicationRecord
   scope :by_any_ingredient, -> (ingredient_ids) { 
     joins(:ingredients)
     .where(ingredients: { id: ingredient_ids })
-    .distinct 
+    .distinct if ingredient_ids.present?
   }
 
   scope :by_all_ingredients, -> (ingredient_ids) {
@@ -74,11 +74,13 @@ class Recipe < ApplicationRecord
   end
 
   def self.match_any_ingredient(params)
+    p 'TESTING'
+    p params
     ingredient_ids = '{' + params[:ingredientIds].join(', ') + '}' if params[:ingredientIds]
     by_category(params[:categoryIds])
       .by_any_ingredient(params[:userIngredientIds])
       .by_all_ingredients(ingredient_ids)
-      .search(params[:keyword])
+      .search(params[:keyword]) 
   end
 
   # helpers
