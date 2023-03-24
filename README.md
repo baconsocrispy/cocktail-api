@@ -1,31 +1,5 @@
 ## CONFIGURATION
 
-### Devise
-* add devise gem to Gemfile
-* `bundle install`
-* install devise `rails g devise:install`
-* add `require 'devise'` to top of config/application.rb
-* In `config/initializers/devise.rb` set navigational formats to empty since this is API-Only:
-
-` config.navigational_formats = []`
-
-* create User model: `rails g devise User`
-* create controllers: `rails g devise:controllers users -c sessions registrations`
-
-* I needed to create a session store and add session middleware as they are 
-disabled by default in API only apps. In `application.rb` I added:
-
-```
-# initialize session store & options, key takes form of '_app_name_session'
-config.session_store :cookie_store, key: '_cocktail_session'
-
-# add session middleware to Rack stack
-config.middleware.use ActionDispatch::Cookies
-config.middleware.use config.session_store, config.session_options
-config.middleware.use ActionDispatch::Session::CookieStore
-```
-
-
 ### Server
 In `config/puma.rb` set default port to 3001
 
@@ -83,7 +57,7 @@ session table).
 * create User model: `rails g devise User`
 * create controllers: `rails g devise:controllers users -c sessions registrations`
 
-* https://dakotaleemartinez.com/tutorials/devise-jwt-api-only-mode-for-authentication/
+* Very Helpful: https://dakotaleemartinez.com/tutorials/devise-jwt-api-only-mode-for-authentication/
 
 CABINET PARAMS
 

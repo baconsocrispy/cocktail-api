@@ -1,0 +1,1402 @@
+=> Booting Puma
+=> Rails 7.0.4.2 application starting in development 
+=> Run `bin/rails server --help` for more startup options
+Puma starting in single mode...
+* Puma version: 5.6.5 (ruby 3.1.2-p20) ("Birdie's Version")
+*  Min threads: 5
+*  Max threads: 5
+*  Environment: development
+*          PID: 84104
+* Listening on http://127.0.0.1:3001
+* Listening on http://[::1]:3001
+Use Ctrl-C to stop
+Started GET "/ingredients" for ::1 at 2023-03-24 11:13:50 -0700
+Started GET "/categories" for ::1 at 2023-03-24 11:13:50 -0700
+Started GET "/tools" for ::1 at 2023-03-24 11:13:50 -0700
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by IngredientsController#index as */*
+Processing by CategoriesController#index as */*
+Processing by ToolsController#index as */*
+  [1m[36mIngredient Pluck (1.8ms)[0m  [1m[34mSELECT DISTINCT "ingredients"."type" FROM "ingredients"[0m
+  ↳ app/controllers/ingredients_controller.rb:8:in `index'
+  [1m[36mIngredient Load (5.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients"[0m
+  ↳ app/controllers/ingredients_controller.rb:11:in `map'
+Completed 200 OK in 65ms (Views: 6.2ms | ActiveRecord: 15.2ms | Allocations: 51705)
+
+
+  [1m[36mCategory Load (0.6ms)[0m  [1m[34mSELECT "categories".* FROM "categories"[0m
+  ↳ app/controllers/categories_controller.rb:7:in `map'
+  [1m[36mTool Load (0.5ms)[0m  [1m[34mSELECT "tools".* FROM "tools"[0m
+  ↳ app/controllers/tools_controller.rb:9:in `map'
+Completed 200 OK in 66ms (Views: 0.3ms | ActiveRecord: 48.3ms | Allocations: 55123)
+
+
+Completed 200 OK in 63ms (Views: 0.3ms | ActiveRecord: 45.6ms | Allocations: 52510)
+
+
+Started GET "/tools" for ::1 at 2023-03-24 11:13:51 -0700
+Started GET "/ingredients" for ::1 at 2023-03-24 11:13:51 -0700
+Processing by ToolsController#index as */*
+Started GET "/categories" for ::1 at 2023-03-24 11:13:51 -0700
+  [1m[36mTool Load (1.7ms)[0m  [1m[34mSELECT "tools".* FROM "tools"[0m
+  ↳ app/controllers/tools_controller.rb:9:in `map'
+Completed 200 OK in 4ms (Views: 0.3ms | ActiveRecord: 1.7ms | Allocations: 1616)
+
+
+Processing by IngredientsController#index as */*
+  [1m[36mIngredient Pluck (0.6ms)[0m  [1m[34mSELECT DISTINCT "ingredients"."type" FROM "ingredients"[0m
+  ↳ app/controllers/ingredients_controller.rb:8:in `index'
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients"[0m
+  ↳ app/controllers/ingredients_controller.rb:11:in `map'
+Completed 200 OK in 15ms (Views: 5.4ms | ActiveRecord: 0.9ms | Allocations: 21746)
+
+
+Processing by CategoriesController#index as */*
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories"[0m
+  ↳ app/controllers/categories_controller.rb:7:in `map'
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.1ms | Allocations: 1435)
+
+
+Started GET "/recipes" for ::1 at 2023-03-24 11:13:52 -0700
+Processing by RecipesController#index as */*
+  [1m[36mRecipe Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "recipes"[0m
+  ↳ app/controllers/recipes_controller.rb:47:in `index'
+  [1m[36mRecipe Load (0.4ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" ORDER BY "recipes"."name" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 25], ["OFFSET", 0]]
+  ↳ app/controllers/recipes_controller.rb:50:in `map'
+  [1m[36mIngredient Load (1.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8382], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.8ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8382]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.5ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8382]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.5ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8382]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8382]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8799], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8799]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8799]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8799]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8799]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8760], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.4ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8760]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8760]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8760]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8760]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8299], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8299]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8299]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8299]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8299]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.5ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7408], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7408]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7408]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7408]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7408]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.5ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8811], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8811]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8811]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8811]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8811]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 6999], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 6999]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 6999]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 6999]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 6999]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7267], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7267]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7267]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7267]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7267]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8005], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8005]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8005]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8005]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8005]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8098], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8098]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8098]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8098]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8098]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7078], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7078]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7078]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7078]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7078]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8842], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8842]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8842]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8842]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8842]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7677], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7677]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7677]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7677]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7677]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8390], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8390]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8390]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8390]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8390]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7775], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7775]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7775]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7775]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7775]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8054], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8054]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8054]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8054]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8054]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7320], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7320]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7320]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7320]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7320]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7327], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7327]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7327]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7327]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7327]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8078], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8078]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8078]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.3ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8078]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8078]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7666], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7666]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7666]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7666]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7666]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7361], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7361]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7361]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7361]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7361]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7716], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7716]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7716]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7716]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7716]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 6926], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 6926]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 6926]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 6926]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 6926]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7836], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7836]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7836]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7836]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7836]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7905], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7905]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7905]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7905]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7905]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+Completed 200 OK in 258ms (Views: 166.8ms | ActiveRecord: 37.3ms | Allocations: 165019)
+
+
+Started GET "/recipes" for ::1 at 2023-03-24 11:13:52 -0700
+Processing by RecipesController#index as */*
+  [1m[36mRecipe Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "recipes"[0m
+  ↳ app/controllers/recipes_controller.rb:47:in `index'
+  [1m[36mRecipe Load (0.3ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" ORDER BY "recipes"."name" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 25], ["OFFSET", 0]]
+  ↳ app/controllers/recipes_controller.rb:50:in `map'
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8382], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8382]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8382]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8382]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8382]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8799], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.4ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8799]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.4ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8799]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.3ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8799]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8799]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.4ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8760], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8760]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.3ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8760]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.5ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8760]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8760]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8299], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8299]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8299]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8299]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8299]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+Started GET "/sort_options" for ::1 at 2023-03-24 11:13:52 -0700
+  [1m[36mIngredient Load (0.5ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7408], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7408]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.3ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7408]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7408]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7408]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8811], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8811]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.3ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8811]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.3ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8811]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8811]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 6999], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 6999]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.4ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 6999]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.3ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 6999]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 6999]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+Started GET "/recipes/search?page=1" for ::1 at 2023-03-24 11:13:52 -0700
+  [1m[36mIngredient Load (0.4ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7267], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7267]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7267]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (1.9ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7267]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7267]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (2.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8005], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.5ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8005]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.4ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8005]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.3ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8005]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8005]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.5ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8098], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.8ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8098]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.4ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8098]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.3ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8098]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+Processing by SortOptionsController#index as */*
+  [1m[36mUser Load (5.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8098]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mSortOption Load (0.9ms)[0m  [1m[34mSELECT "sort_options".* FROM "sort_options"[0m
+  ↳ app/controllers/sort_options_controller.rb:8:in `map'
+  [1m[36mIngredient Load (0.9ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7078], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.7ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7078]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+Completed 200 OK in 12ms (Views: 0.2ms | ActiveRecord: 4.7ms | Allocations: 6583)
+
+
+  [1m[36mStep Load (2.9ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7078]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7078]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7078]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8842], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8842]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8842]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8842]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8842]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7677], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7677]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+Processing by RecipesController#search as */*
+  [1m[36mStep Load (0.8ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7677]]
+  Parameters: {"page"=>"1"}
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.4ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7677]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mRecipe Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "recipes"[0m
+  ↳ app/controllers/recipes_controller.rb:34:in `search'
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7677]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8390], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mRecipe Load (2.0ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" ORDER BY "recipes"."name" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 25], ["OFFSET", 0]]
+  ↳ app/controllers/recipes_controller.rb:37:in `map'
+  [1m[36mCategory Load (5.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8390]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8390]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (1.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8382], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.6ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8390]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8390]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (1.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8382]]
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7775], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7775]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (1.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8382]]
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7775]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7775]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.6ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8382]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7775]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8382]]
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8054], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (1.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8799], ["portionable_type", "Recipe"]]
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8054]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.5ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8799]]
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8054]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.5ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8799]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (1.0ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8054]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.7ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8799]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8054]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8799]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.5ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7320], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (1.7ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8760], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.6ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7320]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.7ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8760]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.5ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7320]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.5ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8760]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.5ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7320]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.4ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8760]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7320]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8760]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.7ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7327], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.5ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8299], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.7ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7327]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.5ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8299]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.7ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7327]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.5ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8299]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.5ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7327]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.7ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8299]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7327]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8299]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.5ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8078], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.4ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7408], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (1.7ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8078]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.6ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7408]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.8ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8078]]
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7408]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.4ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8078]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.6ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7408]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8078]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7408]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.7ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7666], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.4ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8811], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.8ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7666]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.6ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8811]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.6ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7666]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.5ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8811]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.5ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7666]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.5ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8811]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7666]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8811]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.5ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7361], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.7ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 6999], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.5ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7361]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.5ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 6999]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.5ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7361]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (4.8ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 6999]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.6ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7361]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.9ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 6999]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7361]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 6999]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.5ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7716], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.5ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7267], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.5ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7716]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.5ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7267]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.9ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7716]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.8ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7267]]
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7716]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.6ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7267]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7716]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7267]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.8ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 6926], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.5ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8005], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.5ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 6926]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.5ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8005]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.5ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 6926]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.5ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8005]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.7ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 6926]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.5ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8005]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 6926]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8005]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.5ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7836], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.5ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8098], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.5ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7836]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.5ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8098]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.6ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7836]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.5ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8098]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.5ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7836]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.6ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8098]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7836]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8098]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.4ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7905], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.4ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7078], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.5ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7905]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.7ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7078]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.5ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7905]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.8ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7078]]
+  [1m[36mTool Load (0.3ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7905]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7905]]
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7078]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+Completed 200 OK in 324ms (Views: 247.9ms | ActiveRecord: 66.7ms | Allocations: 214205)
+
+
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7078]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8842], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8842]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8842]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8842]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8842]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7677], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7677]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7677]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7677]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7677]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8390], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8390]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8390]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8390]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8390]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7775], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7775]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7775]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7775]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7775]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8054], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8054]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8054]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8054]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8054]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7320], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7320]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7320]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7320]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7320]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7327], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7327]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7327]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7327]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7327]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8078], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8078]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8078]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (2.3ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8078]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8078]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7666], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7666]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7666]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7666]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7666]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7361], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7361]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7361]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7361]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7361]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7716], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7716]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7716]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7716]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7716]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 6926], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 6926]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 6926]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 6926]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 6926]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7836], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7836]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7836]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7836]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7836]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7905], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7905]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7905]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7905]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7905]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+Completed 200 OK in 242ms (Views: 180.1ms | ActiveRecord: 54.6ms | Allocations: 217261)
+
+
+Started GET "/sort_options" for ::1 at 2023-03-24 11:13:53 -0700
+Processing by SortOptionsController#index as */*
+  [1m[36mSortOption Load (0.3ms)[0m  [1m[34mSELECT "sort_options".* FROM "sort_options"[0m
+  ↳ app/controllers/sort_options_controller.rb:8:in `map'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.3ms | Allocations: 843)
+
+
+Started POST "/signin" for ::1 at 2023-03-24 11:14:01 -0700
+Processing by Users::SessionsController#create as */*
+  Parameters: {"user"=>{"email"=>"carterbacon.code@gmail.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"carterbacon.code@gmail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "carterbacon.code@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/users/sessions_controller.rb:10:in `create'
+Completed 200 OK in 205ms (Views: 0.1ms | ActiveRecord: 0.3ms | Allocations: 6600)
+
+
+Started GET "/recipes" for ::1 at 2023-03-24 11:14:02 -0700
+Started GET "/current_user" for ::1 at 2023-03-24 11:14:02 -0700
+Processing by RecipesController#index as */*
+  [1m[36mRecipe Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "recipes"[0m
+  ↳ app/controllers/recipes_controller.rb:47:in `index'
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" ORDER BY "recipes"."name" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 25], ["OFFSET", 0]]
+  ↳ app/controllers/recipes_controller.rb:50:in `map'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8382], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8382]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8382]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8382]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+Processing by CurrentUserController#index as */*
+  [1m[36mUser Load (2.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8382]]
+  Parameters: {"current_user"=>{}}
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms | Allocations: 355)
+
+
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8799], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8799]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8799]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8799]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8799]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8760], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8760]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8760]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8760]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8760]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8299], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8299]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8299]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8299]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8299]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7408], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7408]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7408]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7408]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7408]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8811], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8811]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8811]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8811]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8811]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 6999], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 6999]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 6999]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 6999]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 6999]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7267], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7267]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7267]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7267]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7267]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8005], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8005]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8005]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8005]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8005]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8098], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8098]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8098]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8098]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8098]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7078], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7078]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7078]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7078]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7078]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8842], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8842]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8842]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8842]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8842]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7677], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7677]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7677]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7677]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7677]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8390], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8390]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8390]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8390]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8390]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7775], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7775]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7775]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7775]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7775]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8054], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8054]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8054]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8054]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8054]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7320], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7320]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7320]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7320]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7320]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7327], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7327]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7327]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7327]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7327]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8078], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8078]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8078]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8078]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8078]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7666], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7666]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7666]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7666]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7666]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7361], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7361]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7361]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7361]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7361]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7716], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7716]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7716]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7716]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7716]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 6926], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 6926]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 6926]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 6926]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 6926]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7836], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7836]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7836]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7836]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7836]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7905], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7905]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7905]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7905]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7905]]
+  ↳ app/controllers/recipes_controller.rb:49:in `index'
+Completed 200 OK in 167ms (Views: 140.8ms | ActiveRecord: 20.0ms | Allocations: 146627)
+
+
+Started GET "/sort_options" for ::1 at 2023-03-24 11:14:02 -0700
+Processing by SortOptionsController#index as */*
+  [1m[36mSortOption Load (0.2ms)[0m  [1m[34mSELECT "sort_options".* FROM "sort_options"[0m
+  ↳ app/controllers/sort_options_controller.rb:8:in `map'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.2ms | Allocations: 905)
+
+
+Started GET "/recipes/search?page=1" for ::1 at 2023-03-24 11:14:02 -0700
+Processing by RecipesController#search as */*
+  Parameters: {"page"=>"1"}
+  [1m[36mRecipe Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "recipes"[0m
+  ↳ app/controllers/recipes_controller.rb:34:in `search'
+  [1m[36mRecipe Load (0.2ms)[0m  [1m[34mSELECT "recipes".* FROM "recipes" ORDER BY "recipes"."name" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 25], ["OFFSET", 0]]
+  ↳ app/controllers/recipes_controller.rb:37:in `map'
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8382], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8382]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8382]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8382]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8382]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8799], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8799]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8799]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8799]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8799]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8760], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8760]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8760]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8760]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8760]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8299], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8299]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8299]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8299]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8299]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7408], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7408]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7408]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7408]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7408]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8811], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8811]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8811]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8811]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8811]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 6999], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 6999]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 6999]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 6999]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 6999]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7267], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7267]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7267]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7267]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7267]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8005], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8005]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8005]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8005]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8005]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8098], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8098]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8098]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8098]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8098]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7078], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7078]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7078]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7078]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7078]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8842], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8842]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8842]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8842]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8842]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7677], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7677]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7677]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7677]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7677]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8390], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8390]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8390]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8390]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8390]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7775], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7775]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7775]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.3ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7775]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7775]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8054], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8054]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8054]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8054]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8054]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7320], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7320]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7320]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7320]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7320]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7327], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7327]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7327]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7327]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7327]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 8078], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 8078]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 8078]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 8078]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 8078]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7666], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7666]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7666]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.2ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7666]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7666]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7361], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7361]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7361]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7361]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7361]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.3ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7716], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7716]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7716]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7716]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7716]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 6926], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 6926]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.1ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 6926]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 6926]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 6926]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.1ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7836], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7836]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7836]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7836]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7836]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mIngredient Load (0.2ms)[0m  [1m[34mSELECT "ingredients".* FROM "ingredients" INNER JOIN "portions" ON "ingredients"."id" = "portions"."ingredient_id" WHERE "portions"."portionable_id" = $1 AND "portions"."portionable_type" = $2[0m  [["portionable_id", 7905], ["portionable_type", "Recipe"]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" INNER JOIN "categories_recipes" ON "categories"."id" = "categories_recipes"."category_id" WHERE "categories_recipes"."recipe_id" = $1[0m  [["recipe_id", 7905]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mStep Load (0.2ms)[0m  [1m[34mSELECT "steps".* FROM "steps" WHERE "steps"."recipe_id" = $1[0m  [["recipe_id", 7905]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mTool Load (0.1ms)[0m  [1m[34mSELECT "tools".* FROM "tools" INNER JOIN "recipes_tools" ON "tools"."id" = "recipes_tools"."tool_id" WHERE "recipes_tools"."recipe_id" = $1[0m  [["recipe_id", 7905]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "recipes_users" ON "users"."id" = "recipes_users"."user_id" WHERE "recipes_users"."recipe_id" = $1[0m  [["recipe_id", 7905]]
+  ↳ app/controllers/recipes_controller.rb:36:in `search'
+Completed 200 OK in 217ms (Views: 191.6ms | ActiveRecord: 19.2ms | Allocations: 143983)
+
+
+Started GET "/sort_options" for ::1 at 2023-03-24 11:14:03 -0700
+Processing by SortOptionsController#index as */*
+  [1m[36mSortOption Load (0.2ms)[0m  [1m[34mSELECT "sort_options".* FROM "sort_options"[0m
+  ↳ app/controllers/sort_options_controller.rb:8:in `map'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.2ms | Allocations: 842)
+
+
+- Gracefully stopping, waiting for requests to finish
+=== puma shutdown: 2023-03-24 11:18:22 -0700 ===
+- Goodbye!
+Exiting
