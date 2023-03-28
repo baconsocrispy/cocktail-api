@@ -45,7 +45,9 @@ class RecipesController < ApplicationController
 
   # GET /recipes/1
   def show
-    render json: @recipe
+    render json: {
+      recipe: RecipeSerializer.new(@recipe).serializable_hash[:data][:attributes]
+    }
   end
 
   # POST /recipes

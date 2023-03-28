@@ -74,8 +74,6 @@ class Recipe < ApplicationRecord
   end
 
   def self.match_any_ingredient(params)
-    p 'TESTING'
-    p params
     ingredient_ids = '{' + params[:ingredientIds].join(', ') + '}' if params[:ingredientIds]
     by_category(params[:categoryIds])
       .by_any_ingredient(params[:userIngredientIds])
