@@ -9,9 +9,9 @@ class CabinetSerializer
     object.class.name
   end
 
-  attributes :ingredients do |object|
-    object.ingredients.map { |ingredient| 
-      IngredientSerializer.new(ingredient).serializable_hash[:data][:attributes]
+  attributes :portions do |object|
+    object.portions.map { |portion| 
+      PortionSerializer.new(portion).serializable_hash[:data][:attributes]
     }
   end
 end
