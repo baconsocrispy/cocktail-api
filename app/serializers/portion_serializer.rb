@@ -12,4 +12,8 @@ class PortionSerializer
   attributes :class do |object|
     object.class.name
   end
+
+  attributes :type do |object|
+    object.ingredient.type
+  end
 end
